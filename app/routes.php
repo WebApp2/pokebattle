@@ -38,7 +38,7 @@ Route::get('/load', function()
 });
 Route::get('/battle', function()
 {
-	return View::make('poke_battle.test');
+	return View::make('poke_battle.battleScreen');
 });
 Route::get('/victory', function()
 {
@@ -49,6 +49,9 @@ Route::get('/game', function()
 {
 	return View::make('poke_battle.battle_generator');
 });
-
+Route::get('/test', function()
+{
+	return View::make('poke_battle.test');
+});
 
 
