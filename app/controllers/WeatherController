@@ -1,0 +1,7 @@
+<?php
+public function data()
+{
+	return view('pages.weather');
+}
+
+?>
