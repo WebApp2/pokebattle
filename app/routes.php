@@ -27,7 +27,7 @@
 
 Route::get('/', function()
 {
-	return "This is the host for pokebattle";
+	return "This is pokebattle";
 });
 
 

@@ -8,6 +8,7 @@
 </head>
 
 <?php
+/*
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -33,7 +34,7 @@ if ($result->num_rows > 0) {
         $attack = $row["attack"];
         //trying to figure out a way to get attack name
         $attackName = $conn->query("SELECT attack_name from moves where attack_type_pk = $pokemon_type");
-        
+        */
          ?>
         <body background = "/assets/pokebattleBG.png">
 
@@ -41,7 +42,16 @@ if ($result->num_rows > 0) {
             <div style ='margin-left:500px'>
 
         <?php
-$results1 = DB::select('SELECT image_url,attack, name, health FROM pokemon where pokemon_id = 1', array(1));
+        $pokemon_type = DB::select(DB::raw('Select type from pokemon where pokemon_id = $pokemon_id'));
+       
+$results1 = DB::select(DB::raw('SELECT image_url, name, health, attack, type from pokemon where pokemon_id = 1'));
+
+foreach($results1 as $index => $val ){
+  print $val;
+}
+
+
+ $attackName = DB::select(DB::raw('SELECT attack_name from moves where attack_type_pk = $pokemon_type'));
 print_r($results1);
 
        print"<div><img src= '$pic' style='width:150px;height:150px;position: relative' id='player1pic'/>
