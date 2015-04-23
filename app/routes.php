@@ -51,7 +51,7 @@ Route::get('/game', function()
 });
 Route::get('/test', function()
 {
-	return View::make('poke_battle.test');
+	return View::make('poke_battle.battleScreen.blade');
 });
 
 

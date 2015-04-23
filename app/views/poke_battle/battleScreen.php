@@ -4,13 +4,77 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-  
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<style>
+html, body, .container {
+    height: 100%;
+}
+.container {
+    display: table;
+    vertical-align: left;
+}
+.vertical-center-row {
+    display: table-cell;
+    vertical-align: left;
+}
+</style>
 </head>
+<header>
+   <div class="navbar-wrapper">
+      <div class="container">
+
+        <nav class="navbar navbar-inverse navbar-static-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#">Poke-Battle!</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li class="divider"></li>
+                    <li class="dropdown-header">Nav header</li>
+                    <li><a href="#">Separated link</a></li>
+                    <li><a href="#">One more separated link</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+      </div>
+    </div>
+
+  </header>
 
         <body background = "/assets/pokebattleBG.png">
 
           <div class="container">
-            <div style ='margin-left:500px'>
+    <div class="row vertical-center-row">
+        <div class="col-lg-12">
+            <div class="row ">
+                <div class="col-xs-4 col-xs-offset-2" >
 
 <?php
 
@@ -51,11 +115,13 @@ $attackName =  DB::table('moves')->where('attack_type_pk', $type)->pluck('attack
 
 ?>
         
-          </div>
-        </div>
-          <div class="container">
-            <div style ='margin-left:250px'>
-
+           </div>
+           </div>
+            </div>
+<div class="row vertical-center-row">
+        <div class="col-lg-12">
+            <div class="row ">
+                <div class="col-xs-4 col-xs-offset-5" >
 <?php
 //Get random pokemon ID
 $p2_id = rand( 1,  9);
@@ -87,6 +153,13 @@ $attackName2 =  DB::table('moves')->where('attack_type_pk', $type2)->pluck('atta
         print"<div id='attackName2'></div>";
 
         ?>
+       
+      
+           </div>
+           </div>
+            </div>
+   
+  </div>
 
       </body>
 
@@ -176,7 +249,7 @@ width:25%;
  
 <div id="p2healthbar"></div><p id="p2healthstat"></p>
 
-<div style ='position:relative;margin-right:50px'id="p1healthbar"></div><p id="p1healthstat"></p>
+
  
  
 </body>
