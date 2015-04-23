@@ -27,7 +27,7 @@
 
 Route::get('/', function()
 {
-	return "This is the pokebattle game";
+	return View::make('poke_battle.index');
 });
 
 
@@ -35,6 +35,10 @@ Route::get('/', function()
 Route::get('/load', function()
 {
 	return View::make('poke_battle.pokemonMain');
+});
+Route::get('/signup', function()
+{
+	return View::make('poke_battle.signup');
 });
 Route::get('/battle', function()
 {
@@ -53,5 +57,4 @@ Route::get('/test', function()
 {
 	return View::make('poke_battle.battleScreen.blade');
 });
-
 
