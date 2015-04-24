@@ -57,4 +57,8 @@ Route::get('/test', function()
 {
 	return View::make('poke_battle.battleScreen.blade');
 });
+Route::get('/login', function()
+{
+	return View::make('poke_battle.login');
+});
 
