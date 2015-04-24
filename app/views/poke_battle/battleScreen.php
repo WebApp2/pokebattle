@@ -15,6 +15,9 @@
 <style>
 html, body, .container {
     height: 100%;
+    font-weight:bold;
+    font-size:15px;
+    color:black;
 }
 .container {
     display: table;
@@ -23,6 +26,9 @@ html, body, .container {
 .vertical-center-row {
     display: table-cell;
     vertical-align: left;
+}
+.progress{
+  width:200px;
 }
 </style>
 </head>
@@ -113,10 +119,17 @@ print "<div><img src= $pic style='width:150px;height:150px;position: relative' i
 
 //Attack button, used for jquery onclick function
 print"<input type ='submit' id='p1attack' value='$attackName'>";
+//Keep the continue button hidden until the p1attack function is run
+print"<input type ='submit' id='continue' value='Continue' style='display:none'>";
 
 
-
+//<div id="p1healthbar" style="width:250px"></div><p id="p1healthstat"></p>
 ?>
+<div class="progress">
+  <div id="p1healthbar" class="progress-bar" role="progressbar" aria-valuenow="newHealth" aria-valuemin="0" aria-valuemax="health" style="width: 100%;">
+  </div>
+</div>
+
         
            </div>
            </div>
@@ -124,7 +137,7 @@ print"<input type ='submit' id='p1attack' value='$attackName'>";
 <div class="row vertical-center-row">
         <div class="col-lg-12">
             <div class="row ">
-                <div class="col-xs-4 col-xs-offset-5" >
+                <div class="col-xs-4 col-xs-offset-3" >
 <?php
 //Get random pokemon ID
 $p2_id = rand( 1,  9);
@@ -162,7 +175,11 @@ $attackName2 =  DB::table('moves')->where('attack_type_pk', $type2)->pluck('atta
 
         ?>
        
-      <div id="p2healthbar" style="width:250px"></div><p id="p2healthstat"></p>
+      <div class="progress">
+  <div id="p2healthbar" class="progress-bar" role="progressbar" aria-valuenow="newhealth2" aria-valuemin="0" aria-valuemax="health2" style="width: 100%;">
+  </div>
+</div>
+
            </div>
            </div>
             </div>
@@ -180,29 +197,60 @@ var health = "<?php echo $health; ?>" ;
 var attack = "<?php echo $attack; ?>" ;
 var name2 = "<?php echo $name2; ?>" ;
 var health2 = "<?php echo $health2; ?>" ;
-var newHealth1 = health;
+var newHealth = health;
 var newhealth2 = health2;
 var attack2 = "<?php echo $attack2; ?>" ;
-
-//Set player 2 the health stat number on load
- $("#p2healthstat").html(newhealth2 + "/" + health2);
+//Set player 1 and 2 the health stat number on load
+ $("#p2healthbar").html(newhealth2 + "/" + health2);
+ $('#p1healthbar').html(newHealth + "/" + health);
        
-   $(function() {
-      //Sets current and max health of player 2's pokemon for progress bar
-     $( "#p2healthbar" ).progressbar({
-       value: parseInt(newhealth2), max: parseInt(health2)
+   
+   //Continue button for "AI" pokemon to attack
+      $('#continue').click(function(){
+
+        $( "#player2pic" ).animate({
+          right: "50px"
+           }, 750, function() {
+          $(this).css({'right':'0'});   
+          });
+
+         newHealth -= attack2;
+         $('#p1healthbar').html(newHealth + "/" + health);
+          $('#p1healthbar').css('width', parseInt(newHealth)+'%').attr('aria-valuenow', parseInt(newHealth));
+       if(newHealth <= 0 ){
+         $('#lostModal').modal('show');
+         <?php if(isset($_REQUEST['lost1']) || isset($_REQUEST['lost2'])) {
+                    DB::update('update user set user_losses = (user_losses + 1) where id = 0'); 
+                     
+                  } ?>
+       }
+          //Append text to div panel
+    $('#battleLog').append("</br>"+name2 + " did " + attack2 + " damage to " + name +"!");
+        //Hide the continue button, show the attack button for player
+        $('#continue').hide();
+        $('#p1attack').show().delay(1000).fadeIn(400);
       });
-  });
-      
      
   $('#p1attack').click(function(){//PLayer 1 attack button function
     
+    //Hide the attack button to prevent button spamming, show the continue button
+      $('#continue').show().delay(1000).fadeIn(1000);
+      $('#p1attack').hide();
     //Moves the player 1 picutre right 50px then resets
     $( "#player1pic" ).animate({
       left: "50px"
-       }, 500, function() {
+       }, 750, function() {
           $(this).css({'left':'0'});   
       });
+
+    //Take attack damage, subtract from health, update progress bar 
+     newhealth2 -= attack;
+     //Update health stat number next to progress bar
+    $("#p2healthbar").html(newhealth2 + "/" + health2);
+      //Update progress bar value
+     $('#p2healthbar').css('width', parseInt(newhealth2)+'%').attr('aria-valuenow', parseInt(newhealth2));
+       //Append text to div panel
+    $('#battleLog').append("</br>"+name + " did " + attack + " damage to " + name2 +"!");
        
        //Checks if player 2's pokemon health is 0 or below, redirects to victory screen
        //php injected to call mysql function that will add user experience point
@@ -226,14 +274,10 @@ $("#xpPoints").html(xp + "/" + xpNeeded);
      $('#myModal').modal('show');
      //end of If statement
      }
-     //Take attack damage, subtract from health, update progress bar 
-     newhealth2 -= attack;
-     //Update health stat number next to progress bar
-    $("#p2healthstat").html(newhealth2 + "/" + health2);
-      //Update progress bar value
-      $( "#p2healthbar" ).progressbar({
-          value: parseInt(newhealth2)
-          });
+      else if(newHealth <= 0 ){
+         $('#lostModal').modal('show');
+       }
+     
 
           //Modal button, updates experience progress bar on click.
           $('#xpButton').click(function(){
@@ -275,12 +319,13 @@ $("#xpPoints").html(xp + "/" + xpNeeded);
  
   </script>
 <style>
-#p2healthbar{
-position:relative;
-background-color:red;
-width:25%;
-}
 
+
+#battleLog{
+ background-color:grey;
+ border-radius:5px;
+ color:white;
+}
 </style>
 <style type='text/css'>
 ui-widget-header {
@@ -297,6 +342,13 @@ ui-widget-header {
 </style>
 </head>
 <body>
+  <div class="panel panel-default">
+  <div class="panel-body" id="battleLog">
+    Battle Log:
+   
+  </div>
+</div>
+
  <!--Modal pops up on victory, shows user experience progress -->
 <div class="modal fade" id="myModal">
   <div class="modal-dialog">
@@ -336,7 +388,24 @@ ui-widget-header {
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-
+<!--Modal pops up on victory, shows user experience progress -->
+<div class="modal fade" id="lostModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" style="text-align:center">You Lost!</h4>
+      </div>
+      <div class="modal-body">
+        <p><img src="assets/lost.png" style="width:150px;height:150px">You were defeated!</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" name="lost1" class="btn btn-default">Play again</button>
+        <button type="button" name="lost2" class="btn btn-primary"  data-dismiss="modal">Logout</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
  
  
 </body>
