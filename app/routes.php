@@ -65,3 +65,7 @@ Route::get('/form', function()
 {
 	return View::make('poke_battle.form_handler');
 });
+Route::get('/chart', function()
+{
+	return View::make('poke_battle.top_player_chart');
+});
