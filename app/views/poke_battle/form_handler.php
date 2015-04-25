@@ -19,6 +19,10 @@ if(isset($_REQUEST['lost'])) {
    header( 'Location:battle');
     exit();
 }
+else if(isset($_REQUEST['logout'])) {
+   //Handle the user logout request
+    exit();
+}
 
 
 ?>
