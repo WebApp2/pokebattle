@@ -115,7 +115,7 @@ foreach($list as $index => $val){
 $attackName =  DB::table('moves')->where('attack_type_pk', $type)->pluck('attack_name');
 
 print "<div><img src= $pic style='width:150px;height:150px;position: relative' id='player1pic'/>
-        <br/>Name: $name <br/>Health: $health<br/>Attack: $attack<br/><div>";
+        <br/> $name <br/><div>";
 
 //Attack button, used for jquery onclick function
 print"<input type ='submit' id='p1attack' value='$attackName'>";
@@ -170,7 +170,7 @@ foreach($list as $index => $val){
 
 $attackName2 =  DB::table('moves')->where('attack_type_pk', $type2)->pluck('attack_name');
         print"<div style='margin-left:250'><img src= '$pic2' style='width:150px;height:150px;position: relative' id='player2pic' /> 
-        <br/>Name: $name2 <br/>Health: $health2<br/>Attack: $attack2<br/></div>";
+        <br/>$name2</br><br/></div>";
         print"<div id='attackName2'></div>";
 
         ?>
@@ -207,33 +207,42 @@ var attack2 = "<?php echo $attack2; ?>" ;
    
    //Continue button for "AI" pokemon to attack
       $('#continue').click(function(){
-
+       $('#continue').hide();
+        $('#p1attack').show();
+      
         $( "#player2pic" ).animate({
           right: "50px"
            }, 750, function() {
           $(this).css({'right':'0'});   
           });
 
-         newHealth -= attack2;
+        var d2 = Math.floor(Math.random() * 14) + 1;
+        if(d2 % 2 == 0){
+          
+        $('#battleLog').append("</br>" + name2 + " missed!");
+          }
+        else{
+          newHealth -= attack2;
+        $('#battleLog').append("</br>"+name2 + " did " + attack2 + " damage to " + name +"!");
          $('#p1healthbar').html(newHealth + "/" + health);
           $('#p1healthbar').css('width', parseInt(newHealth)+'%').attr('aria-valuenow', parseInt(newHealth));
+    }
+
+         
+        
        if(newHealth <= 0 ){
          $('#lostModal').modal('show');
-         <?php 
-                     
-                  ?>
+         
        }
-          //Append text to div panel
-    $('#battleLog').append("</br>"+name2 + " did " + attack2 + " damage to " + name +"!");
-        //Hide the continue button, show the attack button for player
-        $('#continue').hide();
-        $('#p1attack').show().delay(1000).fadeIn(400);
+          
+       
       });
      
   $('#p1attack').click(function(){//PLayer 1 attack button function
     
+
     //Hide the attack button to prevent button spamming, show the continue button
-      $('#continue').show().delay(1000).fadeIn(1000);
+      $('#continue').show();
       $('#p1attack').hide();
     //Moves the player 1 picutre right 50px then resets
     $( "#player1pic" ).animate({
@@ -241,15 +250,30 @@ var attack2 = "<?php echo $attack2; ?>" ;
        }, 750, function() {
           $(this).css({'left':'0'});   
       });
-
-    //Take attack damage, subtract from health, update progress bar 
-     newhealth2 -= attack;
-     //Update health stat number next to progress bar
+    var d1 = Math.floor(Math.random() * 700) + 1;
+    if(d1 % 2 == 0){
+      newhealth2 -= attack * 2;
+       $('#battleLog').append("</br>Critical!");
+        //Update health stat number next to progress bar
     $("#p2healthbar").html(newhealth2 + "/" + health2);
       //Update progress bar value
      $('#p2healthbar').css('width', parseInt(newhealth2)+'%').attr('aria-valuenow', parseInt(newhealth2));
+    }
+    else{
+         newhealth2 -= attack;
+       $('#battleLog').append("</br>"+name + " did " + attack + " damage to " + name2 +"!");
+        //Update health stat number next to progress bar
+    $("#p2healthbar").html(newhealth2 + "/" + health2);
+      //Update progress bar value
+     $('#p2healthbar').css('width', parseInt(newhealth2)+'%').attr('aria-valuenow', parseInt(newhealth2));
+
+    }
+
+    //Take attack damage, subtract from health, update progress bar 
+     
+    
        //Append text to div panel
-    $('#battleLog').append("</br>"+name + " did " + attack + " damage to " + name2 +"!");
+   
        
        //Checks if player 2's pokemon health is 0 or below, redirects to victory screen
        //php injected to call mysql function that will add user experience point
@@ -284,23 +308,13 @@ $("#xpPoints").html(xp + "/" + xpNeeded);
           $('#xpButton').click(function(){
             $('#xpButton').hide();
             $('#done').show();
-            if(newXp == xpNeeded){
-
-              $.ajax({ url: 'battle',
-                  data: {action: 'test'},
-                    type: 'get',success: function(output) {
-                     
-                  }
-         
-                      });
-             
+            if(newXp >= xpNeeded){
               //Increase user's level by 1
                
               $('#myModal').modal('hide');
               $('#lvlModal').modal('show');
             }
-            //Update user's xp by 10 points
-            <?php ?>
+           
             $("#xpPoints").html(newXp + "/" + xpNeeded);
              $( "#xpBar" ).progressbar({
               value: newXp, max: parseInt(xpNeeded)
@@ -328,10 +342,7 @@ $("#xpPoints").html(xp + "/" + xpNeeded);
 }
 </style>
 <style type='text/css'>
-#winModal {
-    background: url('assets/victory.jpg') !important;
-   background-size: cover;
-  }
+
 ui-widget-header {
             background: #cedc98;
             border: 1px solid #DDDDDD;
@@ -362,13 +373,13 @@ ui-widget-header {
         <h4 class="modal-title" style="text-align:center">You Win!</h4>
       </div>
       <div class="modal-body" id='winModal'>
-        <p><div id="xpBar" style="width:250px"></div><p id="xpPoints"></p>Victory! You gain 10 xp!</p>
+        <p><img src="assets/win.png"><div id="xpBar" style="width:250px"></div><p id="xpPoints"></p>Victory! You gain 10 xp!</p>
       </div>
       <div class="modal-footer">
         <form class="form-group" action="form" >
           <button type="button" id="xpButton" name="win" class="btn btn-default">Get XP!</button>
          <button class="btn btn-success" name='win' id="done" style="display:none">Play Again</button>
-           <a href="battle" class="btn" data-dismiss="modal">Logout</a>
+           <a href="battle" class="btn" name="logout" data-dismiss="modal">Logout</a>
       </form>
       </div>
     </div><!-- /.modal-content -->
@@ -385,13 +396,13 @@ ui-widget-header {
           <?php $level = DB::table('user')->where('id', 0 )->pluck('user_level') + 1; echo $level ?> </h4>
       </div>
       <div class="modal-body">
-        <p><img src="assets/level.jpg"</p>
+        <p><img src="assets/level.jpg"></p>
       </div>
       <div class="modal-footer">
          <form class="form-group" action="form" >
          
          <button class="btn btn-success" name='level' >Play Again</button>
-           <a href="battle" class="btn" name='level' data-dismiss="modal">Logout</a>
+           <a href="battle" class="btn" name='logout' data-dismiss="modal">Logout</a>
       </form>
        
       
@@ -414,7 +425,7 @@ ui-widget-header {
       <div class="modal-footer">
         <form class="form-group" action="form" >
          <button class="btn btn-success" name='lost' id="submit">Play Again</button>
-           <a href="battle" class="btn" data-dismiss="modal">Logout</a>
+           <a href="battle" class="btn" name = 'logout' data-dismiss="modal">Logout</a>
       </form>
       </div>
     </div><!-- /.modal-content -->
