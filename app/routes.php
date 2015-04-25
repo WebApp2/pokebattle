@@ -61,4 +61,7 @@ Route::get('/login', function()
 {
 	return View::make('poke_battle.login');
 });
-
+Route::get('/form', function()
+{
+	return View::make('poke_battle.form_handler');
+});

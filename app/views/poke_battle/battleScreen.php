@@ -219,10 +219,9 @@ var attack2 = "<?php echo $attack2; ?>" ;
           $('#p1healthbar').css('width', parseInt(newHealth)+'%').attr('aria-valuenow', parseInt(newHealth));
        if(newHealth <= 0 ){
          $('#lostModal').modal('show');
-         <?php if(isset($_REQUEST['lost1']) || isset($_REQUEST['lost2'])) {
-                    DB::update('update user set user_losses = (user_losses + 1) where id = 0'); 
+         <?php 
                      
-                  } ?>
+                  ?>
        }
           //Append text to div panel
     $('#battleLog').append("</br>"+name2 + " did " + attack2 + " damage to " + name +"!");
@@ -258,9 +257,11 @@ if(newhealth2 <= 0){
 
     //Get player's current xp, add victory xp, show in bootstrap modal pop up window
       <?php $userExperience = DB::table('user')->where('id', 0 )->pluck('user_experience');?>
+       <?php $userlevel = DB::table('user')->where('id', 0 )->pluck('user_level');?>
         var xp = "<?php echo $userExperience;?>";
+        var userLevel = "<?php echo $userlevel;?>";
           var newXp = (parseInt(xp) + 10);
-            var xpNeeded = 100;
+            var xpNeeded = (parseInt(userLevel) * 100 );
 $("#xpPoints").html(xp + "/" + xpNeeded);
         
     $(function() {
@@ -281,6 +282,8 @@ $("#xpPoints").html(xp + "/" + xpNeeded);
 
           //Modal button, updates experience progress bar on click.
           $('#xpButton').click(function(){
+            $('#xpButton').hide();
+            $('#done').show();
             if(newXp == xpNeeded){
 
               $.ajax({ url: 'battle',
@@ -290,10 +293,7 @@ $("#xpPoints").html(xp + "/" + xpNeeded);
                   }
          
                       });
-              <?php if(isset($_REQUEST['action']) && !empty($_POST['action'])) {
-                    DB::update('update user set user_level = (user_level + 1) where id = 0'); 
-                     DB::update('update user set user_experience = (user_experience + 10) where id = 0');
-                  } ?>
+             
               //Increase user's level by 1
                
               $('#myModal').modal('hide');
@@ -328,6 +328,10 @@ $("#xpPoints").html(xp + "/" + xpNeeded);
 }
 </style>
 <style type='text/css'>
+#winModal {
+    background: url('assets/victory.jpg') !important;
+   background-size: cover;
+  }
 ui-widget-header {
             background: #cedc98;
             border: 1px solid #DDDDDD;
@@ -357,32 +361,40 @@ ui-widget-header {
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" style="text-align:center">You Win!</h4>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" id='winModal'>
         <p><div id="xpBar" style="width:250px"></div><p id="xpPoints"></p>Victory! You gain 10 xp!</p>
       </div>
       <div class="modal-footer">
-        <button type="button" id="xpButton" class="btn btn-default">XP</button>
-        <button type="button" class="btn btn-primary"  data-dismiss="modal">Go Back</button>
+        <form class="form-group" action="form" >
+          <button type="button" id="xpButton" name="win" class="btn btn-default">Get XP!</button>
+         <button class="btn btn-success" name='win' id="done" style="display:none">Play Again</button>
+           <a href="battle" class="btn" data-dismiss="modal">Logout</a>
+      </form>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+</div><!--
 
 <!-- Modal pop up for user level up -->
 <div class="modal fade" id="lvlModal">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      
         <h4 class="modal-title" style="text-align:center">Level up! You are now level 
-          <?php echo DB::table('user')->where('id', 0 )->pluck('user_level');?></h4>
+          <?php $level = DB::table('user')->where('id', 0 )->pluck('user_level') + 1; echo $level ?> </h4>
       </div>
       <div class="modal-body">
-        <p></p>
+        <p><img src="assets/level.jpg"</p>
       </div>
       <div class="modal-footer">
-        
-        <button type="button" class="btn btn-primary"  data-dismiss="modal">Go Back</button>
+         <form class="form-group" action="form" >
+         
+         <button class="btn btn-success" name='level' >Play Again</button>
+           <a href="battle" class="btn" name='level' data-dismiss="modal">Logout</a>
+      </form>
+       
+      
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
@@ -400,8 +412,10 @@ ui-widget-header {
         <p><img src="assets/lost.png" style="width:150px;height:150px">You were defeated!</p>
       </div>
       <div class="modal-footer">
-        <button type="button" name="lost1" class="btn btn-default">Play again</button>
-        <button type="button" name="lost2" class="btn btn-primary"  data-dismiss="modal">Logout</button>
+        <form class="form-group" action="form" >
+         <button class="btn btn-success" name='lost' id="submit">Play Again</button>
+           <a href="battle" class="btn" data-dismiss="modal">Logout</a>
+      </form>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
