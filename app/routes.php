@@ -73,3 +73,7 @@ Route::get('/pokemon', function()
 {
 	return View::make('poke_battle.top_pokemon_chart');
 });
+Route::get('/home', function()
+{
+	return View::make('poke_battle.home');
+});

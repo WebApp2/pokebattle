@@ -46,6 +46,10 @@ AmCharts.ready(function() {
     chart.dataProvider = chartData;
     chart.categoryField = "Name";
     chart.startDuration = 1;
+
+    //Scrollbar
+    var chartScrollbar = new AmCharts.ChartScrollbar();
+    chart.addChartScrollbar(chartScrollbar);
    
     
     // value

@@ -26,7 +26,7 @@ fwrite($file, "[");
 foreach($list as $ind => $key){
 	$wins = $key['user_wins'];
 	$losses = $key['user_losses'];
-	$username = $key['username'];
+	$username = $key['user_name'];
 	$total = $wins + $losses;
 	$ratio = $wins / $total;
 	if($wins < $losses){
