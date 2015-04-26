@@ -47,9 +47,17 @@ AmCharts.ready(function() {
     chart.categoryField = "Name";
     chart.startDuration = 1;
 
+    var categoryAxis = chart.categoryAxis;
+    categoryAxis.autoGridCount  = false;
+    categoryAxis.gridCount = chartData.length;
+    categoryAxis.gridPosition = "start";
+    categoryAxis.labelRotation =90;
+   
+
     //Scrollbar
     var chartScrollbar = new AmCharts.ChartScrollbar();
     chart.addChartScrollbar(chartScrollbar);
+   
    
     
     // value
@@ -68,6 +76,8 @@ AmCharts.ready(function() {
     graph.type = "column";
     graph.lineAlpha = 0;
     graph.fillAlphas = 1;
+    graph.labelText = '[[value]]'; // this will insert values in labels 
+    graph.labelPosition = 'inside'; // and with this we put our label inside bar 
     chart.addGraph(graph);
 
     
@@ -94,6 +104,8 @@ AmCharts.ready(function() {
                 }
                 chart.validateNow();
             }
+            
+           
         </script>
          <header>
    <div class="navbar-wrapper">
@@ -108,10 +120,11 @@ AmCharts.ready(function() {
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="#">Poke-Battle!</a>
+              <a class="navbar-brand" ></a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
+                 <li><img src='assets/battlelogo.png' style='height:50;width:50'></li>
                <li><a href="login">Logout</a></li>
                <li><a href="players">Top Players</a></li>
                 <li class="active"><a href="pokemon">Top Pokemon</a></li>
@@ -135,7 +148,7 @@ AmCharts.ready(function() {
             <div class="row ">
 
      		<div id="appendDiv" style="width: 800; height: 50;"><h1 style="text-align:center;font-weight:bold">Pokemon Battled!</h1></div>
-     		 <div id="chartdiv" style="width: 800px; height: 500px;"></div>
+     		 <div id="chartdiv" style="width: 800; height:400;postion:absolute"></div>
    			</div>
    		 </div>
    	 </div>

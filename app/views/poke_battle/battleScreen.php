@@ -32,7 +32,7 @@ html, body, .container {
 }
 </style>
 </head>
-      <header>
+        <header>
    <div class="navbar-wrapper">
       <div class="container">
 
@@ -45,14 +45,15 @@ html, body, .container {
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="#">Poke-Battle!</a>
+              <a class="navbar-brand" ></a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
-                <li><a href="login">Logout</a></li>
+                 <li><img src='assets/battlelogo.png' style='height:50px;width:50px'></li>
+               <li><a href="login">Logout</a></li>
                <li><a href="players">Top Players</a></li>
                 <li><a href="pokemon">Top Pokemon</a></li>
-                <li class="active"><a href="battle">Battle!</a></li>
+                <li  class="active"><a href="battle">Battle!</a></li>
                
               </ul>
             </div>
@@ -260,19 +261,14 @@ var attack2 = "<?php echo $attack2; ?>" ;
 
     }
 
-    //Take attack damage, subtract from health, update progress bar 
-     
     
-       //Append text to div panel
-   
-       
        //Checks if player 2's pokemon health is 0 or below, redirects to victory screen
        //php injected to call mysql function that will add user experience point
 if(newhealth2 <= 0){
 
     //Get player's current xp, add victory xp, show in bootstrap modal pop up window
-      <?php $userExperience = DB::table('users')->where('id', 0 )->pluck('user_experience');?>
-       <?php $userlevel = DB::table('users')->where('id', 0 )->pluck('user_level');?>
+      <?php $userExperience = DB::table('users')->where('id', 1 )->pluck('user_experience');?>
+       <?php $userlevel = DB::table('users')->where('id', 1 )->pluck('user_level');?>
         var xp = "<?php echo $userExperience;?>";
         var userLevel = "<?php echo $userlevel;?>";
           var newXp = (parseInt(xp) + 10);

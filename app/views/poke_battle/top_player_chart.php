@@ -49,6 +49,10 @@ AmCharts.ready(function() {
     var legend = new AmCharts.AmLegend();
     chart.addLegend(legend);
 
+     //Scrollbar
+    var chartScrollbar = new AmCharts.ChartScrollbar();
+    chart.addChartScrollbar(chartScrollbar);
+
   
     
     // value
@@ -67,6 +71,8 @@ AmCharts.ready(function() {
     graph.type = "column";
     graph.lineAlpha = 0;
     graph.fillAlphas = 1;
+    graph.labelText = '[[value]]'; // this will insert values in labels 
+    graph.labelPosition = 'inside'; // and with this we put our label inside bar 
     chart.addGraph(graph);
 
     // GRAPH
@@ -78,6 +84,8 @@ AmCharts.ready(function() {
     wins.type = "column";
     wins.lineAlpha = 0;
     wins.fillAlphas = 1;
+    wins.labelText = '[[value]]'; // this will insert values in labels 
+    wins.labelPosition = 'inside'; // and with this we put our label inside bar 
     chart.addGraph(wins);
     chart.hideGraph(wins);//Hide on default
      // GRAPH
@@ -89,6 +97,8 @@ AmCharts.ready(function() {
     losses.type = "column";
     losses.lineAlpha = 0;
     losses.fillAlphas = 1;
+    losses.labelText = '[[value]]'; // this will insert values in labels 
+    losses.labelPosition = 'inside'; // and with this we put our label inside bar 
     chart.addGraph(losses);
     chart.hideGraph(losses);//Hide on default
     
@@ -129,10 +139,11 @@ AmCharts.ready(function() {
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="#">Poke-Battle!</a>
+              <a class="navbar-brand" ></a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
+                <li><img src='assets/battlelogo.png' style='height:50;width:50'></li>
                <li><a href="login">Logout</a></li>
                <li class="active"><a href="players">Top Players</a></li>
                 <li><a href="pokemon">Top Pokemon</a></li>
@@ -156,7 +167,7 @@ AmCharts.ready(function() {
             <div class="row ">
 
      		<div id="appendDiv" style="width: 800; height: 50;"><h1 style="text-align:center;font-weight:bold"> Top Players</h1></div>
-     		 <div id="chartdiv" style="width: 800px; height: 500px;"></div>
+     		 <div id="chartdiv" style="width: 800px; height: 400;"></div>
    			</div>
    		 </div>
    	 </div>
