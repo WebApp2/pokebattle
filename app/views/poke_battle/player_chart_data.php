@@ -1,6 +1,6 @@
 <?php
 function getdata(){
-$results1 = DB::select(DB::raw('SELECT username, user_losses, user_wins from user'));
+$results1 = DB::select(DB::raw('SELECT user_name, user_losses, user_wins from users'));
 
 //Initialize array
 $list = array();

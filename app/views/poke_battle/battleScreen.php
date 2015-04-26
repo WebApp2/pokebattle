@@ -49,7 +49,7 @@ html, body, .container {
             </div>
             <div id="navbar" class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
-                <li><a href="#">Home</a></li>
+                <li><a href="login">Logout</a></li>
                <li><a href="players">Top Players</a></li>
                 <li><a href="pokemon">Top Pokemon</a></li>
                 <li class="active"><a href="battle">Battle!</a></li>
@@ -130,6 +130,7 @@ print"<input type ='submit' id='continue' value='Continue' style='display:none'>
                 <div class="col-xs-4 col-xs-offset-3" >
 <?php
 //Get random pokemon ID
+$user ='';
 $p2_id = rand( 1,  9);
 
 $results1 = DB::select(DB::raw('SELECT image_url, name, health, attack, pokemon_type from pokemon where pokemon_id = :p2_id'), array(
@@ -270,8 +271,8 @@ var attack2 = "<?php echo $attack2; ?>" ;
 if(newhealth2 <= 0){
 
     //Get player's current xp, add victory xp, show in bootstrap modal pop up window
-      <?php $userExperience = DB::table('user')->where('id', 0 )->pluck('user_experience');?>
-       <?php $userlevel = DB::table('user')->where('id', 0 )->pluck('user_level');?>
+      <?php $userExperience = DB::table('users')->where('id', 0 )->pluck('user_experience');?>
+       <?php $userlevel = DB::table('users')->where('id', 0 )->pluck('user_level');?>
         var xp = "<?php echo $userExperience;?>";
         var userLevel = "<?php echo $userlevel;?>";
           var newXp = (parseInt(xp) + 10);
@@ -383,7 +384,9 @@ ui-widget-header {
       <div class="modal-header">
       
         <h4 class="modal-title" style="text-align:center">Level up! You are now level 
-          <?php $level = DB::table('user')->where('id', 0 )->pluck('user_level') + 1; echo $level ?> </h4>
+          <?php //$user_id = $_SESSION['id'];
+                $user_id = 1;
+          $level = DB::table('users')->where('id', $user_id )->pluck('user_level') + 1; echo $level ?> </h4>
       </div>
       <div class="modal-body">
         <p><img src="assets/level.jpg"></p>

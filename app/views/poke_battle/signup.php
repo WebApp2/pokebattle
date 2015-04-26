@@ -71,7 +71,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT name, pokemon_id, image_url FROM pokemon";
+$sql = "SELECT name, pokemon_id, image_url FROM pokemon where pokemon_level = 1";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
@@ -159,7 +159,8 @@ echo "<script>alert('Email $user_email is already exist in our database, Please 
 exit();  
     }  
 //insert the user into the database.  
-    $insert_user="insert into users (user_name,user_pass,user_email) VALUE ('$user_name','$user_pass','$user_email')";  
+    $insert_user="insert into users (user_name,user_pass,user_email)
+     VALUE ('$user_name','$user_pass','$user_email')";  
     if(mysqli_query($dbcon,$insert_user))  
     {  
         echo"<script>window.open('welcome.php','_self')</script>";  

@@ -108,7 +108,7 @@ AmCharts.ready(function() {
             </div>
             <div id="navbar" class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
-                <li><a href="#">Home</a></li>
+               <li><a href="login">Logout</a></li>
                <li><a href="players">Top Players</a></li>
                 <li class="active"><a href="pokemon">Top Pokemon</a></li>
                 <li><a href="battle">Battle!</a></li>

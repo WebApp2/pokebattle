@@ -1,5 +1,5 @@
 <?php 
-$userExperience = DB::table('user')->where('id', 0 )->pluck('user_experience');
+$userExperience = DB::table('users')->where('id', 0 )->pluck('user_experience');
 
 print $userExperience;
 
