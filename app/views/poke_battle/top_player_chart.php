@@ -6,6 +6,13 @@ getData();
 <html>
 
     <head>
+      <style>
+body{
+    font-weight:bold;
+    font-size:15px;
+    color:black;
+}
+</style>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
        <link type="text/css" rel="stylesheet" href="assets/bootstrap-3.3.4-dist/css/bootstrap.css"> 
        <link rel="stylesheet" href="http://www.amcharts.com/lib/style.css" type="text/css">

@@ -14,7 +14,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <style>
 html, body, .container {
-    height: 100%;
+  
     font-weight:bold;
     font-size:15px;
     color:black;
