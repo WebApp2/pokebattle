@@ -130,9 +130,10 @@ print"<input type ='submit' id='continue' value='Continue' style='display:none'>
             <div class="row ">
                 <div class="col-xs-4 col-xs-offset-3" >
 <?php
-//Get random pokemon ID
+
 $user ='';
-$p2_id = rand( 1,  9);
+//Get random pokemon ID from DB
+$p2_id = DB::table('pokemon')->orderByRaw("RAND()")->pluck('pokemon_id');
 
 $results1 = DB::select(DB::raw('SELECT image_url, name, health, attack, pokemon_type from pokemon where pokemon_id = :p2_id'), array(
    'p2_id' => $p2_id,));
