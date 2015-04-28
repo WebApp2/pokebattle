@@ -53,6 +53,7 @@ html, body, .container {
                <li><a href="login">Logout</a></li>
                <li><a href="players">Top Players</a></li>
                 <li><a href="pokemon">Top Pokemon</a></li>
+                 <li><a href="#"<button  id='switch'>Switch Pokemon</button></a></li>
                 <li  class="active"><a href="battle">Battle!</a></li>
                
               </ul>
@@ -76,7 +77,8 @@ html, body, .container {
 <?php
 File::requireOnce('C:\xampp\htdocs\laravel\pokebattle\app\views\poke_battle\form_handler.php');
 
-$p1_id = '';
+
+$p1_id = 1;
 if(isset($_REQUEST['select'])) {
   //Get pokemon ID from the select modal
    $p1_id = $_REQUEST['select'];
@@ -206,7 +208,9 @@ var attack2 = "<?php echo $attack2; ?>" ;
  $("#p2healthbar").html(newhealth2 + "/" + health2);
  $('#p1healthbar').html(newHealth + "/" + health);
        
-   
+   $('#switch').click(function(){
+      $('#pokemon').modal('show');
+    });
    //Continue button for "AI" pokemon to attack
       $('#continue').click(function(){
        $('#continue').hide();
@@ -435,7 +439,79 @@ ui-widget-header {
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
- 
+ <?php $user_id = 1; 
+$user_level =  DB::table('users')->where('id', $user_id)->pluck('user_level');
+
+//Check user level for Pokemon tier selection
+if($user_level >= 3){
+$results = DB::select('SELECT name, image_url, pokemon_id from pokemon where pokemon_level = 1 or 
+  pokemon_level = 2 or pokemon_level = 3');
+}
+elseif($user_level = 2){
+  $results = DB::select('SELECT name, image_url, pokemon_id from pokemon where pokemon_level = 1 or 
+  pokemon_level = 2');
+
+}
+else{
+$results = DB::select('SELECT name, image_url, pokemon_id from pokemon where pokemon_level = 1');
+}
+
+//Initialize variables
+$pic = '';
+$name = '';
+//Initialize array
+$list = array();
+$ind = 1;
+//Sort through DB array create new array
+foreach($results as $index => $val ){
+  foreach($val as $i => $v){
+    $list[$ind][$i] = $v;
+  }
+  $ind++;
+}
+
+?>
+
+
+
+<!-- Modal pop up for user level up -->
+<div class="modal fade" id="pokemon">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+      
+        <h4 class="modal-title" style="text-align:center">Select Your Pokemon </h4>
+      </div>
+      <div class="modal-body">
+         <form class="form-group" action="battle" >
+        <p><?php
+print"<ul>";
+for($i = 1; $i <= sizeof($list); $i++){
+
+  $pic = $list[$i]['image_url'];
+  $id = $list[$i]['pokemon_id'];
+  print"<button class='btn' name='select' value='$id'
+  style='color:black;font-size:15px;font-weight:bold;background-image:url($pic);background-size:100px 100px;background-repeat:no-repeat;height:100px;width:100px'>";
+  print $list[$i]['name'];
+  
+}
+
+
+
+
+?></p>
+      </div>
+      <div class="modal-footer">
+        
+         
+         
+      </form>
+       
+      
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
  
 </body>
 </html>

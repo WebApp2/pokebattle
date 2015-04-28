@@ -63,7 +63,7 @@ AmCharts.ready(function() {
     // value
     var valueAxis = new AmCharts.ValueAxis();
     valueAxis.dashLength = 5;
-    valueAxis.title = "Times Battled";
+    valueAxis.title = "Times Selected";
     valueAxis.axisAlpha = 0;
     chart.addValueAxis(valueAxis);
     
@@ -147,7 +147,7 @@ AmCharts.ready(function() {
         <div class="col-xs-4 col-xs-offset-1">
             <div class="row ">
 
-     		<div id="appendDiv" style="width: 800; height: 50;"><h1 style="text-align:center;font-weight:bold">Pokemon Battled!</h1></div>
+     		<div id="appendDiv" style="width: 800; height: 50;"><h1 style="text-align:center;font-weight:bold">Highest Rated Pokemon</h1></div>
      		 <div id="chartdiv" style="width: 800; height:400;postion:absolute"></div>
    			</div>
    		 </div>
