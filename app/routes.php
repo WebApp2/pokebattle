@@ -77,3 +77,7 @@ Route::get('/home', function()
 {
 	return View::make('poke_battle.home');
 });
+Route::get('/select', function()
+{
+	return View::make('poke_battle.pokemon_select');
+});

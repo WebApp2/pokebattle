@@ -74,8 +74,17 @@ html, body, .container {
                 <div class="col-xs-4 col-xs-offset-2" >
 
 <?php
-//Hard coded player one pokemon selection
-$p1_id = 1;
+File::requireOnce('C:\xampp\htdocs\laravel\pokebattle\app\views\poke_battle\form_handler.php');
+
+$p1_id = '';
+if(isset($_REQUEST['select'])) {
+  //Get pokemon ID from the select modal
+   $p1_id = $_REQUEST['select'];
+   //Update database where pokemon ID is the pokemon chosen
+    DB::update(DB::raw('UPDATE pokemon set i_choose_you = (i_choose_you + 1) where pokemon_id = :pk_id'), array(
+   'pk_id' => $p1_id));
+    
+}
 
 
 $results1 = DB::select(DB::raw('SELECT image_url, name, health, attack, pokemon_type from pokemon where pokemon_id = :p1_id'), array(
@@ -364,11 +373,12 @@ ui-widget-header {
         <p><img src="assets/win.png"><div id="xpBar" style="width:250px"></div><p id="xpPoints"></p>Victory! You gain 10 xp!</p>
       </div>
       <div class="modal-footer">
-        <form class="form-group" action="form" >
+        <form class="form-group" action="battle" >
           <button type="button" id="xpButton" name="win" class="btn btn-default">Get XP!</button>
-         <button class="btn btn-success" name='win' id="done" style="display:none">Play Again</button>
+            <button class="btn btn-success" name='select'  value = "<?php echo $p1_id;?>" id="done" style="display:none" >Play Again</button>
            <a href="battle" class="btn" name="logout" data-dismiss="modal">Logout</a>
       </form>
+      
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
@@ -389,9 +399,11 @@ ui-widget-header {
         <p><img src="assets/level.jpg"></p>
       </div>
       <div class="modal-footer">
-         <form class="form-group" action="form" >
+        
          
-         <button class="btn btn-success" name='level' >Play Again</button>
+        <form class="form-group" action="battle">
+         <button class="btn btn-success" name='select'  value = "<?php echo $p1_id;?>" id="submit" style="display:none" >Play Again</button>
+ 
            <a href="battle" class="btn" name='logout' data-dismiss="modal">Logout</a>
       </form>
        
@@ -413,10 +425,12 @@ ui-widget-header {
         <p><img src="assets/lost.png" style="width:150px;height:150px">You were defeated!</p>
       </div>
       <div class="modal-footer">
-        <form class="form-group" action="form" >
-         <button class="btn btn-success" name='lost' id="submit">Play Again</button>
+        <form class="form-group" action="battle" >
+         <button class="btn btn-success" name='lost' id="done">Ok</button>
            <a href="battle" class="btn" name = 'logout' data-dismiss="modal">Logout</a>
       </form>
+     
+         <button class="btn btn-success" name='select'  value = "<?php echo $p1_id;?>" id="done" style="display:none">Play Again</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
