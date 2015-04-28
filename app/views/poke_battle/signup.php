@@ -43,17 +43,23 @@ a:hover {
 <div class="container"><!-- container class is used to centered  the body of the browser with some decent width-->  
 
             
-                    <form role="form" method="post" action="registration.php">  
+                    <form role="form" method="post" action="register-exec.php">  
                         <fieldset>  
                             <div class="form-group">  
-                                <input class="form-control" placeholder="Username" name="name" type="text" autofocus>  
+                                <input class="form-control" placeholder="Username" name="user_name"
+                                id="user_name"  type="text" autofocus>  
                             </div>  
    
                             <div class="form-group">  
-                                <input class="form-control" placeholder="Password" name="pass" type="password" value="">  
+                                <input class="form-control" placeholder="Password" name="user_pass" id="user_pass" type="password" value="">  
+                            </div>  
+
+                            <div class="form-group">  
+                                <input class="form-control" placeholder="E-mail Address" name="email" id="email" type="email" value="">  
                             </div>  
 
 <img src="assets/select.jpg"><br>
+(Up to 3 per user)<br>
 
     <table>
     <tr>
@@ -129,44 +135,36 @@ if(isset($_POST['register']))
 {  
     $user_name=$_POST['name'];//here getting result from the post array after submitting the form.  
     $user_pass=$_POST['pass'];//same   
+    $email=$_POST['email'];//same   
   
   
     if($user_name=='')  
     {  
         //javascript use for input checking  
-        echo"<script>alert('Please enter the name')</script>";  
+        echo"<script>alert('Please enter a username')</script>";  
 exit();//this use if first is not work then other will not show  
     }  
   
     if($user_pass=='')  
     {  
-        echo"<script>alert('Please enter the password')</script>";  
+        echo"<script>alert('Please enter a password')</script>";  
 exit();  
     }  
   
-    if($user_email=='')  
+    if($email=='')  
     {  
-        echo"<script>alert('Please enter the email')</script>";  
+        echo"<script>alert('Please enter an email address')</script>";  
     exit();  
     }  
-//here query check weather if user already registered so can't register again.  
-    $check_email_query="select * from users WHERE user_email='$user_email'";  
+
+    $check_email_query="select * from users WHERE user_email='$email'";  
     $run_query=mysqli_query($dbcon,$check_email_query);  
   
     if(mysqli_num_rows($run_query)>0)  
     {  
-echo "<script>alert('Email $user_email is already exist in our database, Please try another one!')</script>";  
+echo "<script>alert('Email $email already exists in our database, please try another one!')</script>";  
 exit();  
     }  
-//insert the user into the database.  
-    $insert_user="insert into users (user_name,user_pass,user_email)
-     VALUE ('$user_name','$user_pass','$user_email')";  
-    if(mysqli_query($dbcon,$insert_user))  
-    {  
-        echo"<script>window.open('welcome.php','_self')</script>";  
-    }  
-  
-  
   
 }  
   
