@@ -1,5 +1,5 @@
 <?php
-File::requireOnce('C:\xampp\htdocs\laravel\pokebattle\app\views\poke_battle\pokemon_chart_data.php');
+File::requireOnce('C:\xampp\htdocs\newlaravel\pokebattle\app\views\poke_battle\pokemon_chart_data.php');
 getData();
 ?>
 

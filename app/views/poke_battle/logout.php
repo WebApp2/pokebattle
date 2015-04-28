@@ -13,9 +13,11 @@
 	<title>PokeBattle! Logout</title> 
 	<link rel="stylesheet" type="text/css" href="pokestyle.css" />
 </head>
-<body>
-<p align="center"><img src="assets/logout.jpg"></p>
-<h4 align="center">You have been logged out.</h4>
-<p align="center"><a href="/login">Click here to log back in</a>.</p>
+<body><center>
+<p><img src="assets/logout.jpg"></p>
+<h4>You have been logged out.</h4>
+<p><a href="/login">Click here to log back in</a>.</p>
+<p><a href="/">Click here to go home</a>.</p>
+</center>
 </body>
 </html>

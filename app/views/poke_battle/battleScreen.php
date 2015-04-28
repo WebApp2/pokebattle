@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!doctype html>
 <head>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -50,7 +53,8 @@ html, body, .container {
             <div id="navbar" class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
                  <li><img src='assets/battlelogo.png' style='height:50px;width:50px'></li>
-               <li><a href="login">Logout</a></li>
+                 <li><b>Welcome</b>, <?php $_SESSION['SESS_USERNAME'] ?>!</li>
+               <li><a href="logout">Logout</a></li>
                <li><a href="players">Top Players</a></li>
                 <li><a href="pokemon">Top Pokemon</a></li>
                  <li><a href="#"<button  id='switch'>Switch Pokemon</button></a></li>
