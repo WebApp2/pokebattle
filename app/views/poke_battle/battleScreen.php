@@ -75,7 +75,7 @@ html, body, .container {
                 <div class="col-xs-4 col-xs-offset-2" >
 
 <?php
-File::requireOnce('C:\xampp\htdocs\laravel\pokebattle\app\views\poke_battle\form_handler.php');
+File::requireOnce('C:\xampp\htdocs\newlaravel\pokebattle\app\views\poke_battle\form_handler.php');
 
 
 $p1_id = 1;
