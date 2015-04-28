@@ -85,3 +85,15 @@ Route::get('/select', function()
 {
 	return View::make('poke_battle.pokemon_select');
 });
+Route::get('/regexec', function()
+{
+	return View::make('poke_battle.register-exec');
+});
+Route::get('/success', function()
+{
+	return View::make('poke_battle.regsuccess');
+});
+Route::get('/logexec', function()
+{
+	return View::make('poke_battle.login-exec');
+});

@@ -48,4 +48,12 @@
 	$qry = "INSERT INTO users(user_name, user_pass, user_email) VALUES('$user_name','$user_pass','$email','".md5($_POST['user_pass'])."')";
 	$result = @mysql_query($qry);
 	
+	//Check whether the query was successful or not
+	if($result) {
+		header("location: success");
+		exit();
+	}else {
+		die("Query failed");
+	}
+?>
 ?>
