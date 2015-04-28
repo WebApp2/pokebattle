@@ -77,6 +77,10 @@ Route::get('/home', function()
 {
 	return View::make('poke_battle.home');
 });
+Route::get('/logout', function()
+{
+	return View::make('poke_battle.logout');
+});
 Route::get('/select', function()
 {
 	return View::make('poke_battle.pokemon_select');
