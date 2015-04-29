@@ -56,4 +56,3 @@
 		die("Query failed");
 	}
 ?>
-?>

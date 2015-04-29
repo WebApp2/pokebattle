@@ -11,7 +11,7 @@
 <div class="container"><!-- container class is used to centered  the body of the browser with some decent width-->  
 
             
-                    <form role="form" method="post" action="register-exec.php">  
+                    <form method="post" action="success">  
                         <fieldset>  
                             <div class="form-group">  
                                 <input class="form-control" placeholder="Username" name="user_name"
