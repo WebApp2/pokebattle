@@ -1,7 +1,10 @@
 <?php
-session_start();
-  if($_SESSION['user_name']){
-  }
+//session_start();
+ // if($_SESSION['user_name']){
+   // $username = $_SESSION['user_name'];
+    //$user_id =  DB::table('users')->where('user_name', $username)->pluck('id');
+ // }
+  $user_id = 1;
   ?>
 <!doctype html>
 <head>
@@ -56,7 +59,7 @@ html, body, .container {
               <ul class="nav navbar-nav">
                  <li><img src='assets/battlelogo.png' style='height:50px;width:50px'></li>
                 <!-- This will display a welcome message once the login is figured out.
-                <li><b>Welcome</b>, <?php $_SESSION['SESS_USERNAME'] ?>!</li> -->
+                <li><b>Welcome</b>, <?php //$_SESSION['SESS_USERNAME'] ?>!</li> -->
                <li><a href="logout">Logout</a></li>
                <li><a href="players">Top Players</a></li>
                 <li><a href="pokemon">Top Pokemon</a></li>
@@ -202,7 +205,10 @@ $attackName2 =  DB::table('moves')->where('attack_type_pk', $type2)->pluck('atta
 <script>
   $(document).ready(function(){
       //Create variables from the PHP for both players' pokemon
-      
+       $('#done1').click(function(){
+      $('#done1').hide();
+      $('#submit1').show();
+    });
 var name = "<?php echo $name; ?>" ;
 var health = "<?php echo $health; ?>" ;
 var attack = "<?php echo $attack; ?>" ;
@@ -288,8 +294,8 @@ var attack2 = "<?php echo $attack2; ?>" ;
 if(newhealth2 <= 0){
 
     //Get player's current xp, add victory xp, show in bootstrap modal pop up window
-      <?php $userExperience = DB::table('users')->where('id', 1 )->pluck('user_experience');?>
-       <?php $userlevel = DB::table('users')->where('id', 1 )->pluck('user_level');?>
+      <?php $userExperience = DB::table('users')->where('id', $user_id )->pluck('user_experience');?>
+       <?php $userlevel = DB::table('users')->where('id', $user_id )->pluck('user_level');?>
         var xp = "<?php echo $userExperience;?>";
         var userLevel = "<?php echo $userlevel;?>";
           var newXp = (parseInt(xp) + 10);
@@ -403,7 +409,7 @@ ui-widget-header {
       
         <h4 class="modal-title" style="text-align:center">Level up! You are now level 
           <?php //$user_id = $_SESSION['id'];
-                $user_id = 1;
+                //$user_id = 1;
           $level = DB::table('users')->where('id', $user_id )->pluck('user_level') + 1; echo $level ?> </h4>
       </div>
       <div class="modal-body">
@@ -436,17 +442,18 @@ ui-widget-header {
         <p><img src="assets/lost.png" style="width:150px;height:150px">You were defeated!</p>
       </div>
       <div class="modal-footer">
-        <form class="form-group" action="battle" >
-         <button class="btn btn-success" name='lost' id="done">Ok</button>
+        <form class="form-group" action="#" >
+         <button class="btn btn-success" name='lost' id="done1">Ok</button>
+          <button class="btn btn-success" name='select'  value = "<?php echo $p1_id;?>" id="submit1" style="display:none" >Play Again</button>
            <a href="battle" class="btn" name = 'logout' data-dismiss="modal">Logout</a>
       </form>
      
-         <button class="btn btn-success" name='select'  value = "<?php echo $p1_id;?>" id="done" style="display:none">Play Again</button>
+        
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
- <?php $user_id = 1; 
+ <?php //$user_id = 1; 
 $user_level =  DB::table('users')->where('id', $user_id)->pluck('user_level');
 
 //Check user level for Pokemon tier selection
@@ -454,12 +461,12 @@ if($user_level >= 3){
 $results = DB::select('SELECT name, image_url, pokemon_id from pokemon where pokemon_level = 1 or 
   pokemon_level = 2 or pokemon_level = 3');
 }
-elseif($user_level = 2){
+else if($user_level == 2){
   $results = DB::select('SELECT name, image_url, pokemon_id from pokemon where pokemon_level = 1 or 
   pokemon_level = 2');
 
 }
-else{
+else if($user_level == 1){
 $results = DB::select('SELECT name, image_url, pokemon_id from pokemon where pokemon_level = 1');
 }
 
