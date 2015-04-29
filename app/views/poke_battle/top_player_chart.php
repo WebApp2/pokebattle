@@ -7,7 +7,7 @@ getData();
 
     <head>
       <style>
-body{
+div{
     font-weight:bold;
     font-size:15px;
     color:black;

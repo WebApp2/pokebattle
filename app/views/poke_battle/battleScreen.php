@@ -21,7 +21,7 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <style>
-body{
+div{
     font-weight:bold;
     font-size:15px;
     color:black;
@@ -205,10 +205,7 @@ $attackName2 =  DB::table('moves')->where('attack_type_pk', $type2)->pluck('atta
 <script>
   $(document).ready(function(){
       //Create variables from the PHP for both players' pokemon
-       $('#done1').click(function(){
-      $('#done1').hide();
-      $('#submit1').show();
-    });
+     
 var name = "<?php echo $name; ?>" ;
 var health = "<?php echo $health; ?>" ;
 var attack = "<?php echo $attack; ?>" ;
@@ -343,9 +340,6 @@ $("#xpPoints").html(xp + "/" + xpNeeded);
 
 </script>
   
-  <script>
- 
-  </script>
 <style>
 
 

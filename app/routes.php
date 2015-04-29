@@ -89,6 +89,10 @@ Route::get('/success', function()
 {
 	return View::make('poke_battle.regsuccess');
 });
+Route::get('/add', function()
+{
+	return View::make('poke_battle.add');
+});
 Route::get('/loginsuccess', function()
 {
 	return View::make('poke_battle.login-exec');

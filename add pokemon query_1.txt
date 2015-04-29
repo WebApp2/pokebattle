@@ -1,0 +1,1 @@
+INSERT INTO `pkmnbattle`.`pokemon` (`name`, `health`, `attack`, `pokemon_id`, `pokemon_type`, `i_choose_you`, `image_url`, `color`, `pokemon_level`) VALUES ('Hawlucha', '80', '40', NULL, '4', '0', 'http://i1381.photobucket.com/albums/ah212/rnice01/hawlucha_zpsqrywwbzf.png', '#FF3399', '3');
