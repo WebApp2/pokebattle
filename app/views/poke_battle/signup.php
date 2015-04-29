@@ -133,8 +133,11 @@ echo "<script>alert('Email $email already exists in our database, please try ano
 exit();  
     }  
 
-header("location: regsuccess.php"); 
-  
+if(isset($_post['register']))
+{
+//ur code
+header("location: regsuccess.php");
+}
 }
   
 ?>
