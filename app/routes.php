@@ -98,7 +98,15 @@ Route::post('success', function()
     DB::table('users')->insert(
         array("user_name" => Input::get('user_name'),
               "user_pass" => Input::get("user_pass"),
-              "user_email" => Input::get("email"),
+              "user_email" => Input::get("email")
+        )
+    );
+});
+Route::post('loginsuccess', function()
+{
+    DB::table('users')->select(
+        array("user_name" => Input::get('user_name'),
+              "user_pass" => Input::get("user_pass")
         )
     );
 });
