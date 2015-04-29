@@ -105,6 +105,7 @@ Route::post('success', function()
               "user_email" => Input::get("email")
         )
     );
+    return Redirect::to('success');
 });
 Route::post('loginsuccess', function()
 {
@@ -113,4 +114,5 @@ Route::post('loginsuccess', function()
               "user_pass" => Input::get("user_pass")
         )
     );
+    return Redirect::to('loginsuccess');
 });

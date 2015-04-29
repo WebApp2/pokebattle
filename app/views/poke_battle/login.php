@@ -1,7 +1,3 @@
-<?php
-session_start();
-?>
-
 <html>  
 <head lang="en">  
     <meta charset="UTF-8">  
@@ -40,4 +36,29 @@ session_start();
       
     </body>  
       
-    </html>  
+    </html> 
+
+  <?php
+  if(isset($_POST['login']))  
+{ 
+    
+session_start();
+$message="";
+if(count($_POST)>0) {
+$conn = mysql_connect("localhost","root","");
+mysql_select_db("pkmnbattle",$conn);
+$result = mysql_query("SELECT * FROM users WHERE user_name='" . $_POST["user_name"] . "' and user_pass = '". $_POST["user_pass"]."'");
+$row  = mysql_fetch_array($result);
+
+if(is_array($row)) {
+$_SESSION["user_name"] = $row[user_name];
+} else {
+$message = "Invalid Username or Password!";
+}
+}
+
+if(isset($_SESSION["user_name"])) {
+header("Location:login-exec.php");
+}
+}
+?>
