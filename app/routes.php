@@ -93,3 +93,12 @@ Route::get('/loginsuccess', function()
 {
 	return View::make('poke_battle.login-exec');
 });
+Route::post('success', function()
+{
+    DB::table('users')->insert(
+        array("user_name" => Input::get('user_name'),
+              "user_pass" => Input::get("user_pass"),
+              "user_email" => Input::get("email"),
+        )
+    );
+});

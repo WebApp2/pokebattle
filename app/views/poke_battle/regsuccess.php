@@ -1,21 +1,18 @@
 <?php
 	//Start session
 	session_start();
-	
-	//Include connection info
-	require_once('config.php');
-	
-	//Connect to mysql server
-	$link = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD);
-	if(!$link) {
-		die("Failed to connect to server");
-	}
-	
-	//Select database
-	$db = mysql_select_db(DB_DATABASE);
-	if(!$db) {
-		die("Unable to select database");
-	}
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "pkmnbattle";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 	
 	//Function to sanitize values received from the form
 	function clean($str) {
@@ -44,17 +41,17 @@
 			die("Query failed");
 		}
 	}
-
+}
 	//Create INSERT query
 	$qry = "INSERT INTO users(user_name, user_pass, user_email) VALUES('$user_name','$user_pass','$email','".md5($_POST['user_pass'])."')";
 	$result = @mysql_query($qry);
+
 ?>
 
 <html>
 <head>
 	<link type="text/css" rel="stylesheet" href="assets/bootstrap-3.3.4-dist/css/bootstrap.css">
 	<title>PokeBattle! Registration Successful</title> 
-	<link rel="stylesheet" type="text/css" href="pokestyle.css" />
 </head>
 <body><center>
 <p><img src="assets/success.jpg"></p>
