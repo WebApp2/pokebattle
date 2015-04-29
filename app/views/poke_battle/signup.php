@@ -99,7 +99,10 @@ if(isset($_POST['register']))
 {  
     $user_name=$_POST['name'];//here getting result from the post array after submitting the form.  
     $user_pass=$_POST['pass'];//same   
-    $email=$_POST['email'];//same   
+    $email=$_POST['email'];//same  
+
+    mysql_query("INSERT INTO users(user_name, user_pass, user_email) VALUES ( '" . $_POST['user_name'] . "', '" . $_POST['user_pass'] . "', '" . $_POST['email']  . "')");
+    $current_id = mysql_insert_id(); 
   
   
     if($user_name=='')  
@@ -129,7 +132,9 @@ exit();
 echo "<script>alert('Email $email already exists in our database, please try another one!')</script>";  
 exit();  
     }  
+
+header("location: regsuccess.php"); 
   
-}  
+}
   
 ?>
