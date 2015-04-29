@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <html>  
 <head lang="en">  
     <meta charset="UTF-8">  
@@ -10,7 +14,7 @@
 <center>
     <div class="container">  
        <center> <img src="assets/loginHeader.jpg">
-                        <form role="form" method="post" action="login-exec.php">  
+                        <form role="form" method="post" action="loginsuccess">  
                             <fieldset>  
                                 <div class="form-group"  >  
                                     <input class="form-control" placeholder="Username" name="user_name" id="user_name" autofocus>  

@@ -91,5 +91,5 @@ Route::get('/success', function()
 });
 Route::get('/loginsuccess', function()
 {
-	return View::make('poke_battle.loginsuccess');
+	return View::make('poke_battle.login-exec');
 });
