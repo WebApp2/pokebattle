@@ -26,8 +26,8 @@
                                 <input class="form-control" placeholder="E-mail Address" name="email" id="email" type="email" value="">  
                             </div>  
 
-<img src="assets/select.jpg"><br>
-(Up to 3 per user)<br>
+<img src="assets/starter.jpg"><br>
+(Selection Available During Battle)<br>
 
     <table>
     <tr>
@@ -52,10 +52,7 @@ if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
         echo '
-        <td> <input type="checkbox" value="
-        ' 
-        . $row['pokemon_id'] . '
-        "><b>
+        <td><b><center>
         ' 
         . $row['name'] .  
         '
@@ -63,7 +60,7 @@ if ($result->num_rows > 0) {
         ' 
         . $row['image_url'] . 
         ' 
-        " width="100" height="100"></td> 
+        " width="100" height="100"></center></td> 
         ';
     }
     echo '</tr>';
