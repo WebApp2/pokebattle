@@ -14,7 +14,13 @@ body{
 }
 </style>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-       <link type="text/css" rel="stylesheet" href="assets/bootstrap-3.3.4-dist/css/bootstrap.css"> 
+       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<link type="text/css" rel="stylesheet" href="assets/bootstrap-3.3.4-dist/css/bootstrap.css">
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script> 
        <link rel="stylesheet" href="http://www.amcharts.com/lib/style.css" type="text/css">
 <script src="amcharts/amcharts.js" type="text/javascript"></script>
 <script src="amcharts/serial.js" type="text/javascript"></script>
