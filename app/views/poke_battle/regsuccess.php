@@ -38,6 +38,7 @@
 		if($result) {
 			if(mysql_num_rows($result) > 0) {
 				exit();
+			}
 		}
 		else {
 			die("Query failed");
