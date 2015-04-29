@@ -53,7 +53,8 @@ html, body, .container {
             <div id="navbar" class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
                  <li><img src='assets/battlelogo.png' style='height:50px;width:50px'></li>
-                 <li><b>Welcome</b>, <?php $_SESSION['SESS_USERNAME'] ?>!</li>
+                <!-- This will display a welcome message once the login is figured out.
+                <li><b>Welcome</b>, <?php $_SESSION['SESS_USERNAME'] ?>!</li> -->
                <li><a href="logout">Logout</a></li>
                <li><a href="players">Top Players</a></li>
                 <li><a href="pokemon">Top Pokemon</a></li>
