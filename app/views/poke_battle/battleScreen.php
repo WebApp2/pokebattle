@@ -1,7 +1,7 @@
 <?php
-session_start();
-  if($_SESSION['user_name']){
-  }
+//session_start();
+ // if($_SESSION['user_name']){
+  //}
   ?>
 <!doctype html>
 <head>
@@ -56,7 +56,7 @@ html, body, .container {
               <ul class="nav navbar-nav">
                  <li><img src='assets/battlelogo.png' style='height:50px;width:50px'></li>
                 <!-- This will display a welcome message once the login is figured out.
-                <li><b>Welcome</b>, <?php $_SESSION['SESS_USERNAME'] ?>!</li> -->
+                <li><b>Welcome</b>, <?php //$_SESSION['SESS_USERNAME'] ?>!</li> -->
                <li><a href="logout">Logout</a></li>
                <li><a href="players">Top Players</a></li>
                 <li><a href="pokemon">Top Pokemon</a></li>
@@ -454,12 +454,12 @@ if($user_level >= 3){
 $results = DB::select('SELECT name, image_url, pokemon_id from pokemon where pokemon_level = 1 or 
   pokemon_level = 2 or pokemon_level = 3');
 }
-elseif($user_level = 2){
+else if($user_level == 2){
   $results = DB::select('SELECT name, image_url, pokemon_id from pokemon where pokemon_level = 1 or 
   pokemon_level = 2');
 
 }
-else{
+else if($user_level == 1){
 $results = DB::select('SELECT name, image_url, pokemon_id from pokemon where pokemon_level = 1');
 }
 
